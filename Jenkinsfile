@@ -9,7 +9,7 @@ node('workers'){
         def imageTest = docker.build("${imageName}-test", "-f Dockerfile.test .")
 
         stage('Unit Tests') {
-          imageTest.inside{ sh 'go test' } 
+          sh "docker run -i ${imageName}-test go test"
         }
 
 }
