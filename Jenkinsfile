@@ -5,9 +5,10 @@ node('workers'){
             credentialsId: 'github-ssh',
             url: 'git@github.com:garikl1/mparser.git'
         }
+
+        def imageTest = docker.build("${imageName}-test", "-f Dockerfile.test .")
         stage('Unit Tests') {
-          def imageTest = docker.build("${imageName}-test", "-f Dockerfile.test .")
-          imageTest.inside{ sh "${GOPATH}/bin/golint" }
+          imageTest.insde( sh 'go test' )  
         }
 
 }
