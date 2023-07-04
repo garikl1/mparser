@@ -7,7 +7,7 @@ node('workers'){
         }
         stage('Unit Tests') {
           def imageTest = docker.build("${imageName}-test", "-f Dockerfile.test .")
-          imageTest.inside{ sh 'golint' }
+          imageTest.inside{ sh "${GOPATH}/bin/golint" }
         }
 
 }
